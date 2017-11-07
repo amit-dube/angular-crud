@@ -1,0 +1,15 @@
+<div class="col-lg-12">
+<table class="table">
+<th>Name</th><th>Salary</th><th>Designation</th>
+<tr *ngFor="let x of workers">
+<td>
+<a routerLink="/memberedit/{{x.worker_id}}">
+{{x.name}}
+</a>
+</td>
+<td>{{x.salary}}</td>
+<td>{{x.designation}}</td>
+</tr>
+</table>
+
+</div>
