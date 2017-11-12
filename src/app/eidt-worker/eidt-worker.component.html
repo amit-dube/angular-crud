@@ -2,3 +2,8 @@
  {{memberinfo | json}}
 </p>
 <p>{{memberinfo?.id}}</p>
+<H3> Members List </H3>
+<div class="list-head"> <span> ID </span> <span> Name </span> <span> Designation </span> </div> 
+<div class="list-content" *ngFor="let member of memberinfo">
+	<span> {{member.id}} </span> <span> {{member.name}} </span> <span> {{member.designation}} </span> 
+</div> 

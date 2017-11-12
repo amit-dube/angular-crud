@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit  } from '@angular/core';
+import { Http, Response, RequestOptions, Headers, URLSearchParams } from '@angular/http';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/map';
+import {Subscription} from 'rxjs/Subscription';
+import { Members } from '../members';
 import { WorkerService } from '../services/worker.service';
 
 @Component({
@@ -9,36 +15,22 @@ import { WorkerService } from '../services/worker.service';
 })
 export class WorkersComponent implements OnInit {
 	private worker : any = {};
-	private workers : any[];
+	private workers : Members[];
 	private btnStt = 1;
 	private add_msg : string = '';
   constructor(private workerService : WorkerService) { }
 
   ngOnInit() {
-  this.getMembers(); 
+  	this.getMembers(); 
   }
 
   
- getMembers(){
-	  this.workerService.getMembers().subscribe(
-	  (data)=>{
+ getMembers(): void {
+	  this.workerService.getMembers().subscribe(data => {
 		  this.workers = data;
-		  const keyArr = Object.keys(data);
-		  this.workers = [];
-		 for(var i=0;i<keyArr.length;i++)
-		 {
-			 this.workers.push({
-			 key : keyArr[i],
-			 name : data[keyArr[i]].name,
-			 salary : data[keyArr[i]].salary,
-			 designation : data[keyArr[i]].designation,
-			 worker_id : data[keyArr[i]].id
-			 }
-			 
-			 )			
-		 }
-	  },
-	  (error)=>console.log(error)
-	  )
+	  }, err => {
+        console.error('ERROR', err);
+       });
   }
+
 }
